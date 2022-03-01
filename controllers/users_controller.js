@@ -51,9 +51,9 @@ module.exports.signUp = function(req , res){
 // render sign in page
 module.exports.signIn = function(req , res){
    
-   if(req.isAuthenticated()){
-       res.redirect('/users/profile');
-   }
+//    if(req.isAuthenticated()){
+//        res.redirect('/users/profile');
+//    }
     return res.render('user_sign_in' , {
     title: 'Codial | Sign In'
     });
