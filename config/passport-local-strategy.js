@@ -1,10 +1,9 @@
-const { cookie } = require('express/lib/response');
 const passport = require('passport');
-const User = require('../models/user');
+// const User = require('../models/user');
 
 const LocalStrategy = require('passport-local').Strategy;
 
-// const User = require('../models/user');
+const User = require('../models/user');
 
 
 //Authentication using passport
@@ -43,17 +42,16 @@ passport.serializeUser(function(user,done){
 
 
 // deserializing the user from the key in the cookies
-passport.deserializeUser(function(id , done){
-    User.findById(id , function(err ,user){
+passport.deserializeUser(function(id, done){
+    User.findById(id, function(err, user){
         if(err){
-            console.log("Error in finding user --> Passport");
+            console.log('Error in finding user --> Passport');
             return done(err);
         }
-        return done(null ,done)
+
+        return done(null, user);
     });
-})
-
-
+});
 
 //check if the user is authenticated
 passport.checkAuthentication = function(req, res , next){
