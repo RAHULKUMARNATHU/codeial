@@ -20,13 +20,13 @@ const MongoStore = require('connect-mongo')(session);
 const sassMiddleware = require('node-sass-middleware');
 
 app.use(sassMiddleware({
-    src: '/assets/css',
-    dest:'/assets/css',
+    src: './assets/css',
+    dest:'./assets/css',
     debug:true,
     outputStyle:'expanded',
     prefix:'/css'
 
-    
+
 }))
 
 app.use(express.urlencoded());
