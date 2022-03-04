@@ -14,7 +14,7 @@
      comments:[
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref:'comment'
+            ref:'Comment'
         }
 
      ]
