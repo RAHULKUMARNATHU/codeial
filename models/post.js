@@ -9,11 +9,21 @@
      user: {
          type:mongoose.Schema.Types.ObjectId,
          ref:'User'
-     }
+     },
+    //  adding the array of ids of all cpmments in this post schema itself 
+     comments:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:'comment'
+        }
+
+     ]
+
+
  },{
      timestamps:true
  });
 
  const Post = mongoose.model('Post',postSchema);
  module.exports = Post;
- 
+  
