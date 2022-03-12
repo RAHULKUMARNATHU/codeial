@@ -10,6 +10,8 @@ module.exports.create = async function(req , res){
             content : req.body.content,
             user : req.user._id
         });
+        
+        post=await post.populate('user')
 
         if(req.xhr){
             return res.status(200).json({
@@ -39,10 +41,19 @@ module.exports.destroy = async function(req , res){
         let post = await Post.findById(req.params.id );
         // .id means converting the object id into string
         if(post.user == req.user.id){
+        let postId = post._id
             post.remove();
 
             await Comment.deleteMany({post: req.params.id} )
-            
+
+            if (req.xhr) {
+                return res.status(200).json({
+                    data: {
+                        postId: postId,
+                    },
+                    message: "Post and Associated Comments deleted successfully",
+                });
+            }
             
                 req.flash('success','Post and associated comments deleted');
                 return res.redirect('back');
