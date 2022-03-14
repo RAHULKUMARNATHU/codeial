@@ -1,26 +1,24 @@
 // Let's implement this via classes
 
 // this class would be initialized for every post on the page
-// 1. When the page loads 
-// 2.Creation of every post dynamically vai AJAX
+// 1. When the page loads
+// 2. Creation of every post dynamically via AJAX
 
-class postComments{
-    // contruct is used to initalize the instance of the class whenever a new instance is created
+class PostComments{
+    // constructor is used to initialize the instance of the class whenever a new instance is created
     constructor(postId){
         this.postId = postId;
         this.postContainer = $(`#post-${postId}`);
         this.newCommentForm = $(`#post-${postId}-comments-form`);
 
-
         this.createComment(postId);
 
         let self = this;
         // call for all the existing comments
-        $(' .delete-comment-button',this,this.postContainer).each(function(){
+        $(' .delete-comment-button', this.postContainer).each(function(){
             self.deleteComment($(this));
         });
     }
-
 
 
     createComment(postId){
@@ -33,56 +31,48 @@ class postComments{
                 type: 'post',
                 url: '/comments/create',
                 data: $(self).serialize(),
-                success:function(data){
+                success: function(data){
                     let newComment = pSelf.newCommentDom(data.data.comment);
                     $(`#post-comments-${postId}`).prepend(newComment);
-                    pSelf.deleteComment($(' .delete-comment-button',newComment));
-
+                    pSelf.deleteComment($(' .delete-comment-button', newComment));
 
                     new Noty({
                         theme: 'relax',
-                        text:"comment Published!",
+                        text: "Comment published!",
                         type: 'success',
                         layout: 'topRight',
-                        timeout:1500
-
+                        timeout: 1500
+                        
                     }).show();
 
-
-                },error:function(error){
-                    console.log(error.responseTex);
-
+                }, error: function(error){
+                    console.log(error.responseText);
                 }
             });
+
+
         });
     }
 
 
     newCommentDom(comment){
-     // I've added a class 'delete-comment-button' to the delete comment link and also id to the comment's li
-    return $(`<li id="comment-${ comment._id}">
-        <p>
-                                    
-            <small>
-                <a class="delete-comment-button" href="/comments/destroy/${comment._id}">X</a>
-            </small>
-            
-            ${comment.content}
-            <br>
-            <small>
-                ${comment.user.name}
-            </small>
-        </p>    
-    
-    
-    
-    
-    </li>`)
+        // I've added a class 'delete-comment-button' to the delete comment link and also id to the comment's li
+        return $(`<li id="comment-${ comment._id }">
+                        <p>
+                            
+                            <small>
+                                <a class="delete-comment-button" href="/comments/destroy/${comment._id}">X</a>
+                            </small>
+                            
+                            ${comment.content}
+                            <br>
+                            <small>
+                                ${comment.user.name}
+                            </small>
+                        </p>    
+
+                </li>`);
     }
-
-
-
-
 
 
     deleteComment(deleteLink){
@@ -92,7 +82,7 @@ class postComments{
             $.ajax({
                 type: 'get',
                 url: $(deleteLink).prop('href'),
-                success:function(data){
+                success: function(data){
                     $(`#comment-${data.data.comment_id}`).remove();
 
                     new Noty({
@@ -103,14 +93,11 @@ class postComments{
                         timeout: 1500
                         
                     }).show();
-
                 },error: function(error){
-                    console.log(error.responseTex);
+                    console.log(error.responseText);
                 }
-
-
-
             });
+
         });
     }
 }

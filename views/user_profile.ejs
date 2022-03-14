@@ -25,14 +25,19 @@
     <!-- <%}%> -->
      <% if(user.id == profile_user.id) {%>
         <form action="/users/update/<%= profile_user.id %>" enctype="multipart/form-data"  method="post">
+
             <input type="text" name = "name" placeholder="Your Name " value="<%= profile_user.name %>" required>
             <input type="email" name ="email" placeholder="Your Email" value="<%= profile_user.email %>" required>
             
-            <input type="file" name="avatar" id="change-avatar" placeholder="Profile Picture">
+            <input type="file" name="avatar" onchange= PreviewImage() id="uploadImage" placeholder="Profile Picture">
             <input type="submit" value="Update">
             
 
         </form>
+
+        <img id="uploadPreview" style="width: 100px; height: 100px;" />
+        <input type="button" value="Cancle" onclick= reset() >
+
 
     <%} else{%>
 
@@ -41,7 +46,34 @@
      
         
     <%}%>
-    <script src="/js/preview.js"></script>
+    <!-- <script src="/js/preview.js"></script> -->
+
+
+
+
+    <script>                
+        function PreviewImage() {
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+    
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview").src = oFREvent.target.result;
+            };
+        };
+
+        function reset() {
+            $('#uploadImage').val('');
+            $("#uploadPreview").attr("src","");
+        }
+
+
+    </script>
+
+
+
+
+
+
     <!-- <footer>
         Page Footer
     </footer>
