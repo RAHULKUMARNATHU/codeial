@@ -32,7 +32,7 @@ module.exports.create = async function(req, res){
     
                 return res.status(200).json({
                     data: {
-                        comment: comment
+                        comment: comment , userDet:userDet
                     },
                     message: "Post created!"
                 });
