@@ -54,7 +54,7 @@ app.use(express.static(env.asset_path));
 app.use('/uploads',express.static(__dirname + '/uploads'));
 
 // Logging for production
-// app.use(logger(env.morgan.mode, env.morgan.options));
+app.use(logger(env.morgan.mode, env.morgan.options));
 
 app.use(expressEjsLayouts);
 

@@ -1,0 +1,1 @@
+let preview=function(){$("#change-avatar").change((function(e){const t=new FileReader;let a=e.target.files[0];t.readAsDataURL(a),t.addEventListener("load",(function(){$("img").attr("src",this.result),console.log(this,this.result)}))}))};preview();
