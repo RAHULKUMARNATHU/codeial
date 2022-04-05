@@ -1,3 +1,17 @@
+const fs = require('fs');
+const rfs = require('rotating-file-stream');
+const path = require('path');
+
+// Logging for production
+// const logDirectory = path.join(__dirname, '../production_logs');
+// fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+
+// const accessLogStream = rfs('access.log', {
+//     interval: '1d',
+//     path: logDirectory
+// });
+
+
 
 const development = {
     name: 'development',
@@ -24,8 +38,12 @@ const development = {
     google_callback_url:"http://localhost:8000/users/auth/google/callback",
     // passport-jwt
     jwt_secret:'codeial',
-
-
+    
+    // Logging for production
+    // morgan: {
+    //     mode: 'dev',
+    //     options: {stream: accessLogStream}
+    // }
 
 
 }
@@ -55,7 +73,12 @@ const production = {
     google_callback_url:process.env.CODEIAL_GOOGLE_CLIENT_URL,
     // passport-jwt
     jwt_secret:process.env.CODEIAL_JWT_SECRET,
-    
+   
+    // Logging for production
+    // morgan: {
+    //     mode: 'combined',
+    //     options: {stream: accessLogStream}
+    // }
 
 }
 
