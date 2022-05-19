@@ -48,6 +48,8 @@ const development = {
 
 }
 
+// mongodb+srv://kumarrahul9572:7669Shiva@@cluster0.tmye6.mongodb.net/?retryWrites=true&w=majority
+
 const production = {
     name: 'production',
     // assests file scss to css :: index.js
