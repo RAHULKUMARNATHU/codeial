@@ -10,7 +10,7 @@ const app = express();
 
 require('./config/view-helpers')(app);
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 const expressLayout = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 
@@ -48,7 +48,7 @@ if(env.name == 'development'){
 }
 
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended:false}));
 
 app.use(cookieParser());
 
